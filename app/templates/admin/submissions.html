@@ -4,10 +4,10 @@
 <section class="sec">
   <div class="contenedor">
     <div class="admin__barra">
-      <h1 class="sec__titulo">Mensajes recibidos</h1>
+      <h1 class="sec__title">Mensajes recibidos</h1>
       <form method="post" action="{{ url_for('admin.logout') }}">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <button class="btn btn--fantasma btn--chico">Salir</button>
+        <button class="btn btn--tinted btn--chico">Salir</button>
       </form>
     </div>
 
@@ -27,7 +27,7 @@
           <option value="1" {% if leido == "1" %}selected{% endif %}>Leídos</option>
         </select>
       </label>
-      <button class="btn btn--primario btn--chico">Filtrar</button>
+      <button class="btn btn--accent btn--chico">Filtrar</button>
     </form>
 
     <div class="admin__lista">
@@ -43,7 +43,7 @@
         {% if not s.leido %}
         <form method="post" action="{{ url_for('admin.mark_read', submission_id=s.id) }}" class="mensaje__accion">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-          <button class="btn btn--primario btn--chico">Marcar leído</button>
+          <button class="btn btn--accent btn--chico">Marcar leído</button>
         </form>
         {% endif %}
       </article>

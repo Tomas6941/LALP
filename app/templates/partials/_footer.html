@@ -1,12 +1,12 @@
-<footer class="pie">
+<footer class="footer">
   <div class="contenedor">
-    <p class="pie__lema">{{ MLE.lema }}</p>
-    <p class="pie__disclaimer">{{ FOOTER_DISCLAIMER }}</p>
-    <ul class="pie__redes">
+    <p class="footer__motto">{{ MLE.lema }}</p>
+    <p class="footer__note">{{ FOOTER_DISCLAIMER }}</p>
+    <ul class="footer__links">
       {% for red in REDES %}
       <li><a href="{{ red.url }}">{{ red.nombre }}</a></li>
       {% endfor %}
     </ul>
-    <p class="pie__copy">© {{ MLE.nombre }} · {{ MLE.lista }}</p>
+    <p class="footer__copy">© {{ MLE.nombre }} · {{ MLE.lista }}</p>
   </div>
 </footer>

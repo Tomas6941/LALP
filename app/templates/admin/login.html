@@ -2,21 +2,22 @@
 {% block title %}Panel administrativo · {{ MLE.sigla }}{% endblock %}
 {% block content %}
 <section class="sec">
-  <div class="contenedor contenedor--angosto">
-    <h1 class="sec__titulo">Panel administrativo</h1>
-    <div class="sec__regla"></div>
-    <form method="post" class="form">
-      {{ form.hidden_tag() }}
-      <div class="campo">
-        {{ form.usuario.label }}
-        {{ form.usuario }}
-      </div>
-      <div class="campo">
-        {{ form.password.label }}
-        {{ form.password(type="password") }}
-      </div>
-      <button type="submit" class="btn btn--primario">Ingresar</button>
-    </form>
+  <div class="contenedor">
+    <div class="panel panel--auth">
+      <h1 class="sec__title">Panel administrativo</h1>
+      <form method="post" class="form">
+        {{ form.hidden_tag() }}
+        <div class="field">
+          {{ form.usuario.label }}
+          {{ form.usuario }}
+        </div>
+        <div class="field">
+          {{ form.password.label }}
+          {{ form.password(type="password") }}
+        </div>
+        <button type="submit" class="btn btn--accent btn--block">Ingresar</button>
+      </form>
+    </div>
   </div>
 </section>
 {% endblock %}

@@ -1,29 +1,35 @@
 <section id="propuestas" class="sec sec--alt">
   <div class="contenedor">
-    <h2 class="sec__titulo">Nuestras <span class="acento">propuestas</span></h2>
-    <div class="sec__regla"></div>
-    <p class="sec__baja">Diez compromisos concretos, con responsable, plazo y dependencia institucional.</p>
+    <header class="sec__head" data-reveal>
+      <h2 class="sec__title">Nuestras propuestas</h2>
+      <p class="sec__sub">Diez compromisos concretos, con responsable, plazo y dependencia institucional.</p>
+    </header>
 
-    <div class="grid grid--3 grid--pad">
+    <div class="cards cards--3">
       {% for p in propuestas %}
-      <article data-card class="tarjeta tarjeta--propuesta">
-        <span class="tarjeta__cinta"></span>
-        <h3 class="tarjeta__titulo">{{ p.titulo }}</h3>
-        <p class="tarjeta__texto">{{ p.objetivo }}</p>
+      <article class="card card--disclosure" data-card data-reveal>
+        <h3 class="card__title">{{ p.titulo }}</h3>
+        <p class="card__text">{{ p.objetivo }}</p>
 
-        <button class="btn btn--primario btn--chico" data-card-toggle type="button" aria-expanded="false">
-          Ver detalle
+        <button class="disclosure" data-card-toggle type="button"
+                aria-expanded="false" aria-controls="detalle-{{ p.id }}">
+          <span data-card-label>Ver detalle</span>
+          <svg class="disclosure__chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </button>
 
-        <div class="tarjeta__detalle is-hidden" data-card-detail>
-          <ul class="lista-disc">
-            {% for paso in p.pasos %}<li>{{ paso }}</li>{% endfor %}
-          </ul>
-          <dl class="meta">
-            <div class="meta__fila"><dt>Responsable: </dt><dd>{{ p.responsable }}</dd></div>
-            <div class="meta__fila"><dt>Plazo: </dt><dd>{{ p.plazo }}</dd></div>
-            <div class="meta__fila"><dt>Depende de la escuela: </dt><dd>{{ p.depende_escuela }}</dd></div>
-          </dl>
+        <div class="disclosure__panel" id="detalle-{{ p.id }}" data-card-detail>
+          <div class="disclosure__inner">
+            <div class="disclosure__content">
+              <ul class="bullets">
+                {% for paso in p.pasos %}<li>{{ paso }}</li>{% endfor %}
+              </ul>
+              <dl class="meta">
+                <div class="meta__row"><dt>Responsable</dt><dd>{{ p.responsable }}</dd></div>
+                <div class="meta__row"><dt>Plazo</dt><dd>{{ p.plazo }}</dd></div>
+                <div class="meta__row"><dt>Depende de la escuela</dt><dd>{{ p.depende_escuela }}</dd></div>
+              </dl>
+            </div>
+          </div>
         </div>
       </article>
       {% endfor %}

@@ -1,14 +1,15 @@
 <section id="nosotros" class="sec">
   <div class="contenedor">
-    <h2 class="sec__titulo">Nosotros</h2>
-    <div class="sec__regla"></div>
-    <p class="sec__baja">{{ NOSOTROS.intro }}</p>
-    <ul class="grid grid--3 grid--pad">
+    <header class="sec__head" data-reveal>
+      <h2 class="sec__title">Nosotros</h2>
+      <p class="sec__sub">{{ NOSOTROS.intro }}</p>
+    </header>
+
+    <ul class="cards cards--3">
       {% for titulo, detalle in NOSOTROS.principios %}
-      <li class="tarjeta">
-        <span class="tarjeta__cinta"></span>
-        <h3 class="tarjeta__titulo tarjeta__titulo--acento">{{ titulo }}</h3>
-        <p class="tarjeta__texto">{{ detalle }}</p>
+      <li class="card" data-reveal>
+        <h3 class="card__title">{{ titulo }}</h3>
+        <p class="card__text">{{ detalle }}</p>
       </li>
       {% endfor %}
     </ul>

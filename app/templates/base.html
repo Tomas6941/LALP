@@ -2,16 +2,21 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>{% block title %}{{ MLE.nombre }} · {{ MLE.lista }}{% endblock %}</title>
   <meta name="description" content="{% block description %}{{ MLE.lema }} — {{ MLE.nombre }} ({{ MLE.lista }}).{% endblock %}">
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{ MLE.nombre }} · {{ MLE.lista }}">
   <meta property="og:description" content="{{ MLE.lema }}">
   <meta property="og:image" content="{{ url_for('static', filename='img/og-image.webp') }}">
-  <meta name="theme-color" content="#2563EB">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  {# Bloqueante y a propósito: marca `has-js` antes del primer pintado #}
+  <script src="{{ url_for('static', filename='js/boot.js') }}"></script>
 </head>
 <body>
   <a href="#inicio" class="skip-link">Saltar al contenido</a>

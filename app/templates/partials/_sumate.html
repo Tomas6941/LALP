@@ -1,33 +1,37 @@
-<section id="sumate" class="sec sumar">
+<section id="sumate" class="sec sec--alt">
   <div class="contenedor">
-    <h2 class="sec__titulo">Sumate</h2>
-    <p class="sec__baja">
-      Sumate a la lista. Elegí el equipo de trabajo al que querés sumarte y contanos por qué.
-    </p>
+    <header class="sec__head" data-reveal>
+      <h2 class="sec__title">Sumate</h2>
+      <p class="sec__sub">
+        Sumate a la lista. Elegí el equipo de trabajo al que querés sumarte y contanos por qué.
+      </p>
+    </header>
 
-    <form method="post" action="/sumate" data-contact-form class="form">
-      {{ form.hidden_tag() }}
-      <div class="honey" aria-hidden="true">
-        <label for="website">No completar</label>
-        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-      </div>
-      <div class="campo">
-        {{ form.nombre.label }}
-        {{ form.nombre }}
-      </div>
-      <div class="campo">
-        {{ form.contacto.label }}
-        {{ form.contacto }}
-      </div>
-      <div class="campo">
-        {{ form.puesto.label }}
-        {{ form.puesto }}
-      </div>
-      <div class="campo">
-        {{ form.mensaje.label }}
-        {{ form.mensaje(rows="5") }}
-      </div>
-      <button type="submit" class="btn btn--primario">Enviar</button>
-    </form>
+    <div class="panel" data-reveal>
+      <form method="post" action="/sumate" data-contact-form class="form">
+        {{ form.hidden_tag() }}
+        <div class="honey" aria-hidden="true">
+          <label for="website">No completar</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="field">
+          {{ form.nombre.label }}
+          {{ form.nombre }}
+        </div>
+        <div class="field">
+          {{ form.contacto.label }}
+          {{ form.contacto }}
+        </div>
+        <div class="field">
+          {{ form.puesto.label }}
+          {{ form.puesto }}
+        </div>
+        <div class="field">
+          {{ form.mensaje.label }}
+          {{ form.mensaje(rows="5") }}
+        </div>
+        <button type="submit" class="btn btn--accent btn--block">Enviar</button>
+      </form>
+    </div>
   </div>
 </section>

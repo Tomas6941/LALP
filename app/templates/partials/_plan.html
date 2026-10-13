@@ -1,14 +1,15 @@
 <section id="plan" class="sec sec--alt">
   <div class="contenedor">
-    <h2 class="sec__titulo">Plan primeros <span class="acento">90 días</span></h2>
-    <div class="sec__regla"></div>
+    <header class="sec__head" data-reveal>
+      <h2 class="sec__title">Plan primeros 90 días</h2>
+    </header>
 
-    <ol class="timeline">
+    <ol class="groups">
       {% for periodo, prioridades in PLAN_90 %}
-      <li class="timeline__item">
-        <h3 class="timeline__periodo">{{ periodo }}</h3>
-        <ul class="lista-disc">
-          {% for item in prioridades %}<li>{{ item }}</li>{% endfor %}
+      <li class="group" data-reveal>
+        <h3 class="group__header">{{ periodo }}</h3>
+        <ul class="list list--plain">
+          {% for item in prioridades %}<li class="list__item">{{ item }}</li>{% endfor %}
         </ul>
       </li>
       {% endfor %}
