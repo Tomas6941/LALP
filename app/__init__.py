@@ -19,12 +19,19 @@ def create_app(config_name: str = "dev") -> Flask:
             "connect_args": {"check_same_thread": False},
         }
     else:
-        app.config.setdefault(
-            "SQLALCHEMY_ENGINE_OPTIONS",
-            {"pool_pre_ping": True, "poolclass": StaticPool}
-            if app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite")
-            else {"pool_pre_ping": True},
-        )
+        # File-based SQLite / other engines use the default pool. Only the
+        # in-memory URI above needs StaticPool. For file SQLite keep the
+        # default pool but allow cross-thread use (flask run is threaded).
+        if app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite"):
+            app.config.setdefault(
+                "SQLALCHEMY_ENGINE_OPTIONS",
+                {"pool_pre_ping": True, "connect_args": {"check_same_thread": False}},
+            )
+        else:
+            app.config.setdefault(
+                "SQLALCHEMY_ENGINE_OPTIONS",
+                {"pool_pre_ping": True},
+            )
 
     db.init_app(app)
     login_manager.init_app(app)
