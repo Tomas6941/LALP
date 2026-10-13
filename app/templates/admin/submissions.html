@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Mensajes · {{ MLE.sigla }}{% endblock %}
+{% block content %}
+<section class="mx-auto max-w-6xl px-4 py-12">
+  <div class="flex flex-wrap items-center justify-between gap-4">
+    <h1 class="text-3xl font-black uppercase text-violeta-claro">Mensajes recibidos</h1>
+    <form method="post" action="{{ url_for('admin.logout') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <button class="rounded-card border border-violeta-claro px-4 py-2 hover:bg-violeta-oscuro">Salir</button>
+    </form>
+  </div>
+  <form method="get" class="mt-6 flex flex-wrap gap-4 text-sm">
+    <label>Tipo
+      <select name="tipo" class="rounded-card bg-negro px-2 py-1 text-blanco">
+        <option value="">Todos</option>
+        {% for value, label in tipo_labels %}
+        <option value="{{ value }}" {% if tipo == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Estado
+      <select name="leido" class="rounded-card bg-negro px-2 py-1 text-blanco">
+        <option value="">Todos</option>
+        <option value="0" {% if leido == "0" %}selected{% endif %}>No leídos</option>
+        <option value="1" {% if leido == "1" %}selected{% endif %}>Leídos</option>
+      </select>
+    </label>
+    <button class="rounded-card bg-violeta px-4 py-2 font-bold">Filtrar</button>
+  </form>
+  <div class="mt-8 space-y-4">
+    {% for s in submissions %}
+    <article class="rounded-card border border-violeta-oscuro/40 p-5">
+      <div class="flex flex-wrap items-center gap-3 text-sm text-violeta-claro">
+        <span class="rounded-full bg-violeta-oscuro/40 px-3 py-1">{{ s.tipo }}</span>
+        <span>{{ s.created_at.strftime("%Y-%m-%d %H:%M") }}</span>
+        {% if s.leido %}<span class="rounded-full bg-violeta px-3 py-1 text-blanco">leído</span>{% endif %}
+      </div>
+      <p class="mt-3 font-bold">{{ s.nombre }} <span class="font-normal">— {{ s.contacto }}</span></p>
+      <p class="mt-2 whitespace-pre-line">{{ s.mensaje }}</p>
+      {% if not s.leido %}
+      <form method="post" action="{{ url_for('admin.mark_read', submission_id=s.id) }}" class="mt-3">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="rounded-card bg-violeta px-4 py-2 text-sm font-bold hover:bg-violeta-oscuro">Marcar leído</button>
+      </form>
+      {% endif %}
+    </article>
+    {% else %}
+    <p class="text-violeta-claro">No hay mensajes.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

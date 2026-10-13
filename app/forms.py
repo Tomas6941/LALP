@@ -13,3 +13,8 @@ class ContactForm(FlaskForm):
     tipo = SelectField("Tipo", choices=TIPOS, validators=[InputRequired()])
     mensaje = TextAreaField("Mensaje", validators=[InputRequired(), Length(min=10, max=2000)])
     website = StringField("No completar")  # honeypot
+
+
+class LoginForm(FlaskForm):
+    usuario = StringField("Usuario", validators=[InputRequired(), Length(min=1, max=120)])
+    password = StringField("Contraseña", validators=[InputRequired(), Length(min=1, max=200)])
