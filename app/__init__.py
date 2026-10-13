@@ -1,12 +1,24 @@
+from pathlib import Path
+
 from flask import Flask, render_template
 from sqlalchemy.pool import StaticPool
 
 from app.config import CONFIG_MAP
 from app.extensions import csrf, db, login_manager, migrate
 
+# Repo root (app/ -> project root).
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 def create_app(config_name: str = "dev") -> Flask:
-    app = Flask(__name__)
+    # Assets live in public/static: Vercel serves public/** from its CDN and
+    # ignores Flask's default app/static folder. Pointing static_folder here
+    # keeps `url_for('static', ...)` -> /static/... working in local dev too.
+    app = Flask(
+        __name__,
+        static_folder=str(BASE_DIR / "public" / "static"),
+        static_url_path="/static",
+    )
     app.config.from_object(CONFIG_MAP[config_name])
 
     if config_name == "prod":

@@ -13,6 +13,18 @@ def _database_url():
     return url
 
 
+def default_config_name() -> str:
+    """'dev' locally, 'prod' when running on Vercel (which sets VERCEL=1).
+
+    Using the platform-provided VERCEL flag means a production deployment
+    can never silently fall back to DevConfig (DEBUG=True + SQLite) just
+    because someone forgot to set an env var.
+    """
+    if os.environ.get("APP_CONFIG"):
+        return os.environ["APP_CONFIG"]
+    return "prod" if os.environ.get("VERCEL") else "dev"
+
+
 class Config:
     SECRET_KEY = os.environ.get("SECRET_KEY", "dev-insecure-change-me")
     SQLALCHEMY_DATABASE_URI = _database_url()

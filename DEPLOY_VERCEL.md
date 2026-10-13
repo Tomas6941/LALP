@@ -2,6 +2,12 @@
 
 Guía paso a paso para desplegar este proyecto (Flask + Jinja2 + SQLAlchemy) en Vercel.
 
+> **Estado:** los **pasos 1 a 4 ya están aplicados** en el repo (entrypoint `wsgi.py`
+> con config por entorno, estáticos en `public/`, `vercel.json` moderno,
+> `.python-version`, `.vercelignore` y dependencias separadas). Se conservan acá como
+> referencia de *por qué* está armado así. Lo que te queda por hacer al deployar son
+> los **pasos 5 a 9**.
+
 > **Contexto:** el repo venía preparado para el **modelo viejo** de Vercel (`builds` + `@vercel/python` + carpeta `/api`). Desde octubre de 2025 Vercel detecta Flask de forma automática (*zero-config*), así que esa configuración se reemplaza. Además hay **3 cosas que hoy rompen** en producción: SQLite, los estáticos en `app/static/` y la config de desarrollo en `wsgi.py`.
 
 ---

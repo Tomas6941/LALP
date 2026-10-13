@@ -10,13 +10,14 @@ Flask 3 · SQLAlchemy 2 · Flask-Login · Flask-WTF · Jinja2 · CSS nativo (sin
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 cp .env.example .env
 FLASK_APP=wsgi.py flask db upgrade
 FLASK_APP=wsgi.py flask run
 ```
 
-Los estilos viven en `app/static/css/styles.css` (sin compilación).
+Los estilos viven en `public/static/` (sin compilación). Esa carpeta es la que Vercel
+sirve por CDN, y Flask la usa como `static_folder` en desarrollo.
 
 ## Tests
 
