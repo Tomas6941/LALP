@@ -200,9 +200,8 @@ EQUIPO = {
 
 # Puestos a los que se puede postular quien completa el formulario #sumate
 # (value, label). El value se guarda en la base de datos.
+# Presidente y vicepresidente NO son postulables: se definen por lista/elección.
 PUESTOS = [
-    ("presidente", "Presidente"),
-    ("vicepresidente", "Vicepresidente"),
     ("secretaria-actas", "Secretaría de Actas"),
     ("secretaria-finanzas", "Secretaría de Finanzas"),
     ("secretaria-prensa", "Secretaría de Prensa, Difusión y Tecnología"),
