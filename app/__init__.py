@@ -47,9 +47,11 @@ def create_app(config_name: str = "dev") -> Flask:
 
     from app.models import Submission, RateLimitHit  # noqa: F401
 
+    from app.routes.contact import contact_bp
     from app.routes.main import main_bp
 
     app.register_blueprint(main_bp)
+    app.register_blueprint(contact_bp)
 
     from content import mle
 
