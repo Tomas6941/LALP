@@ -1,12 +1,4 @@
 {
   "name": "mle-web",
-  "private": true,
-  "scripts": {
-    "dev": "tailwindcss -i app/static/css/tailwind.src.css -o app/static/css/tailwind.css --watch",
-    "build": "tailwindcss -i app/static/css/tailwind.src.css -o app/static/css/tailwind.css --minify"
-  },
-  "devDependencies": {
-    "@tailwindcss/cli": "^4.0.0",
-    "tailwindcss": "^4.0.0"
-  }
+  "private": true
 }

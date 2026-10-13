@@ -1,12 +1,12 @@
-<footer class="border-t border-violeta-oscuro/40 px-4 py-12 text-sm">
-  <div class="mx-auto max-w-6xl space-y-4">
-    <p class="text-lg font-black">{{ MLE.lema }}</p>
-    <p class="max-w-3xl text-violeta-claro">{{ FOOTER_DISCLAIMER }}</p>
-    <ul class="flex flex-wrap gap-4">
+<footer class="pie">
+  <div class="contenedor">
+    <p class="pie__lema">{{ MLE.lema }}</p>
+    <p class="pie__disclaimer">{{ FOOTER_DISCLAIMER }}</p>
+    <ul class="pie__redes">
       {% for red in REDES %}
-      <li><a class="hover:text-violeta-claro" href="{{ red.url }}">{{ red.nombre }}</a></li>
+      <li><a href="{{ red.url }}">{{ red.nombre }}</a></li>
       {% endfor %}
     </ul>
-    <p class="text-xs">© {{ MLE.nombre }} · {{ MLE.lista }}</p>
+    <p class="pie__copy">© {{ MLE.nombre }} · {{ MLE.lista }}</p>
   </div>
 </footer>

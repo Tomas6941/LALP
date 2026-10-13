@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="mx-auto max-w-2xl px-4 py-24 text-center">
-  <h1 class="text-6xl font-black text-violeta-claro">404</h1>
-  <p class="mt-4 text-lg">La página que buscás no existe.</p>
-  <a href="{{ url_for('main.index') }}" class="mt-8 inline-block rounded-card bg-violeta px-6 py-3 font-bold">Volver al inicio</a>
+<section class="error">
+  <div class="contenedor">
+    <h1 class="error__codigo">404</h1>
+    <p class="error__texto">La página que buscás no existe.</p>
+    <a href="{{ url_for('main.index') }}" class="btn btn--primario">Volver al inicio</a>
+  </div>
 </section>
 {% endblock %}

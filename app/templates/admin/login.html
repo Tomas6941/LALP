@@ -1,19 +1,22 @@
 {% extends "base.html" %}
-{% block title %}Admin · {{ MLE.sigla }}{% endblock %}
+{% block title %}Panel administrativo · {{ MLE.sigla }}{% endblock %}
 {% block content %}
-<section class="mx-auto max-w-md px-4 py-20">
-  <h1 class="text-3xl font-black uppercase text-violeta-claro">Panel administrativo</h1>
-  <form method="post" class="mt-8 space-y-4">
-    {{ form.hidden_tag() }}
-    <div>
-      {{ form.usuario.label(class="block font-bold") }}
-      {{ form.usuario(class="w-full rounded-card px-3 py-2 text-negro") }}
-    </div>
-    <div>
-      {{ form.password.label(class="block font-bold") }}
-      {{ form.password(type="password", class="w-full rounded-card px-3 py-2 text-negro") }}
-    </div>
-    <button type="submit" class="rounded-card bg-violeta px-6 py-3 font-bold hover:bg-violeta-oscuro">Ingresar</button>
-  </form>
+<section class="sec">
+  <div class="contenedor contenedor--angosto">
+    <h1 class="sec__titulo">Panel administrativo</h1>
+    <div class="sec__regla"></div>
+    <form method="post" class="form">
+      {{ form.hidden_tag() }}
+      <div class="campo">
+        {{ form.usuario.label }}
+        {{ form.usuario }}
+      </div>
+      <div class="campo">
+        {{ form.password.label }}
+        {{ form.password(type="password") }}
+      </div>
+      <button type="submit" class="btn btn--primario">Ingresar</button>
+    </form>
+  </div>
 </section>
 {% endblock %}

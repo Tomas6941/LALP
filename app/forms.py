@@ -11,7 +11,7 @@ class ContactForm(FlaskForm):
         "Contacto (email o teléfono)", validators=[InputRequired(), Length(min=5, max=200)]
     )
     puesto = SelectField(
-        "Puesto al que te postulás",
+        "Equipo al que querés sumarte",
         choices=mle.PUESTOS,
         validators=[InputRequired()],
     )

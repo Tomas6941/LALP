@@ -24,10 +24,10 @@ def test_valid_submission_creates_row(client, app):
 
 
 def test_submission_with_puesto(client, app):
-    client.post("/sumate", data=_form(puesto="secretaria-prensa"))
+    client.post("/sumate", data=_form(puesto="equipo-proyectos"))
     with app.app_context():
         s = Submission.query.first()
-        assert s.puesto == "secretaria-prensa"
+        assert s.puesto == "equipo-proyectos"
 
 
 def test_honeypot_blocks(client, app):

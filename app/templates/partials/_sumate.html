@@ -1,31 +1,33 @@
-<section id="sumate" class="bg-violeta px-4 py-20 text-blanco">
-  <div class="mx-auto max-w-2xl">
-    <h2 class="text-4xl font-black uppercase">Sumate</h2>
-    <p class="mt-2">Sumate a la lista. Elegí el puesto al que te postulás y contanos por qué.</p>
-    <form method="post" action="/sumate" data-contact-form class="mt-8 space-y-4">
+<section id="sumate" class="sec sumar">
+  <div class="contenedor">
+    <h2 class="sec__titulo">Sumate</h2>
+    <p class="sec__baja">
+      Sumate a la lista. Elegí el equipo de trabajo al que querés sumarte y contanos por qué.
+    </p>
+
+    <form method="post" action="/sumate" data-contact-form class="form">
       {{ form.hidden_tag() }}
-      <div class="hidden" aria-hidden="true">
+      <div class="honey" aria-hidden="true">
         <label for="website">No completar</label>
         <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
       </div>
-      <div>
-        {{ form.nombre.label(class="block font-bold") }}
-        {{ form.nombre(class="w-full rounded-card px-3 py-2 text-negro") }}
+      <div class="campo">
+        {{ form.nombre.label }}
+        {{ form.nombre }}
       </div>
-      <div>
-        {{ form.contacto.label(class="block font-bold") }}
-        {{ form.contacto(class="w-full rounded-card px-3 py-2 text-negro") }}
+      <div class="campo">
+        {{ form.contacto.label }}
+        {{ form.contacto }}
       </div>
-      <div>
-        {{ form.puesto.label(class="block font-bold") }}
-        {{ form.puesto(class="w-full rounded-card px-3 py-2") }}
+      <div class="campo">
+        {{ form.puesto.label }}
+        {{ form.puesto }}
       </div>
-      <div>
-        {{ form.mensaje.label(class="block font-bold") }}
-        {{ form.mensaje(rows="5", class="w-full rounded-card px-3 py-2 text-negro") }}
+      <div class="campo">
+        {{ form.mensaje.label }}
+        {{ form.mensaje(rows="5") }}
       </div>
-      <p data-client-error class="hidden rounded-card bg-negro px-3 py-2" role="alert"></p>
-      <button type="submit" class="rounded-card bg-negro px-6 py-3 font-bold hover:bg-negro/80">Enviar</button>
+      <button type="submit" class="btn btn--primario">Enviar</button>
     </form>
   </div>
 </section>

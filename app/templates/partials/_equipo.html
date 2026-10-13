@@ -1,25 +1,34 @@
-<section id="equipo" class="mx-auto max-w-5xl px-4 py-20">
-  <h2 class="text-4xl font-black uppercase text-violeta-claro">Equipo</h2>
-  <div class="mt-8 grid gap-6 sm:grid-cols-2">
-    <div class="rounded-card border border-violeta-oscuro/40 p-6">
-      <p class="text-sm uppercase text-violeta-claro">Presidente</p>
-      <p class="text-xl font-bold">{{ EQUIPO.presidente }}</p>
+<section id="equipo" class="sec">
+  <div class="contenedor">
+    <h2 class="sec__titulo">Equipo</h2>
+    <div class="sec__regla"></div>
+
+    <div class="grid grid--2 grid--pad">
+      <div class="perfil">
+        <p class="perfil__rol">Presidente</p>
+        <p class="perfil__nombre">{{ EQUIPO.presidente }}</p>
+      </div>
+      <div class="perfil">
+        <p class="perfil__rol">Vicepresidente</p>
+        <p class="perfil__nombre">{{ EQUIPO.vicepresidente }}</p>
+      </div>
     </div>
-    <div class="rounded-card border border-violeta-oscuro/40 p-6">
-      <p class="text-sm uppercase text-violeta-claro">Vicepresidente</p>
-      <p class="text-xl font-bold">{{ EQUIPO.vicepresidente }}</p>
-    </div>
+
+    <h3 class="sec__subtitulo">Secretarías</h3>
+    <ul class="secretarias">
+      {% for nombre, quien in EQUIPO.secretarias %}
+      <li class="secretaria">
+        <span class="secretaria__area">{{ nombre }}</span>
+        <span class="secretaria__quien">{{ quien }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <h3 class="sec__subtitulo">Equipos de trabajo</h3>
+    <ul class="chips">
+      {% for equipo in EQUIPO.equipos %}
+      <li class="chip">{{ equipo }}</li>
+      {% endfor %}
+    </ul>
   </div>
-  <h3 class="mt-10 text-2xl font-bold">Secretarías</h3>
-  <ul class="mt-4 grid gap-3 sm:grid-cols-2">
-    {% for nombre, quien in EQUIPO.secretarias %}
-    <li class="rounded-card bg-violeta-oscuro/30 px-4 py-3"><span class="font-bold">{{ nombre }}</span> — {{ quien }}</li>
-    {% endfor %}
-  </ul>
-  <h3 class="mt-10 text-2xl font-bold">Equipos de trabajo</h3>
-  <ul class="mt-4 flex flex-wrap gap-3">
-    {% for equipo in EQUIPO.equipos %}
-    <li class="rounded-card border border-violeta-claro px-4 py-2">{{ equipo }}</li>
-    {% endfor %}
-  </ul>
 </section>

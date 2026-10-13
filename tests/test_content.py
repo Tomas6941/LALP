@@ -22,13 +22,21 @@ def test_indicadores_ten():
     assert len(mle.INDICADORES) == 10
 
 
-def test_puestos_include_all_roles():
+def test_puestos_only_allow_work_teams():
     values = [v for v, _ in mle.PUESTOS]
     assert "colaborador" in values
-    # una por cada secretaría
-    for slug in ("secretaria-actas", "secretaria-finanzas", "secretaria-cultura", "secretaria-deportes"):
+    # solo equipos de trabajo son postulables
+    for slug in ("equipo-organizacion", "equipo-comunicacion", "equipo-proyectos", "equipo-convivencia"):
         assert slug in values
-    # presidente/vicepresidente no son postulables (se definen por lista)
-    assert "presidente" not in values
-    assert "vicepresidente" not in values
+    # presidente, vicepresidente y secretarías no son postulables
+    for slug in (
+        "presidente",
+        "vicepresidente",
+        "secretaria-actas",
+        "secretaria-finanzas",
+        "secretaria-prensa",
+        "secretaria-cultura",
+        "secretaria-deportes",
+    ):
+        assert slug not in values
     assert len(mle.PUESTOS) == len(set(values))

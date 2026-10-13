@@ -8,20 +8,20 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{ MLE.nombre }} · {{ MLE.lista }}">
   <meta property="og:description" content="{{ MLE.lema }}">
-  <meta property="og:image" content="{{ url_for('static', filename='img/og-image.png') }}">
-  <meta name="theme-color" content="#7C3AED">
-  <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg') }}" type="image/svg+xml">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.css') }}">
+  <meta property="og:image" content="{{ url_for('static', filename='img/og-image.webp') }}">
+  <meta name="theme-color" content="#2563EB">
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-  <a href="#inicio" class="sr-only focus:not-sr-only focus:absolute focus:m-4 focus:rounded focus:bg-violeta focus:px-4 focus:py-2">Saltar al contenido</a>
+  <a href="#inicio" class="skip-link">Saltar al contenido</a>
   {% include "partials/_nav.html" %}
   <main id="main">
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
-        <div class="mx-auto max-w-3xl px-4 pt-4">
+        <div class="contenedor flash-wrap">
           {% for category, msg in messages %}
-            <p class="rounded-card px-4 py-2 {% if category == 'success' %}bg-violeta text-blanco{% else %}bg-violeta-oscuro text-blanco{% endif %}">{{ msg }}</p>
+            <p class="flash flash--{% if category == 'success' %}success{% else %}error{% endif %}">{{ msg }}</p>
           {% endfor %}
         </div>
       {% endif %}

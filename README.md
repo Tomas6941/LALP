@@ -4,7 +4,7 @@ Sitio de campaña de la Lista Liberal (MLE) con formulario de contacto y panel a
 
 ## Stack
 
-Flask 3 · SQLAlchemy 2 · Flask-Login · Flask-WTF · Jinja2 · Tailwind CSS v4 · SQLite (dev) / Postgres (prod) · Vercel.
+Flask 3 · SQLAlchemy 2 · Flask-Login · Flask-WTF · Jinja2 · CSS nativo (sin framework) · SQLite (dev) / Postgres (prod) · Vercel.
 
 ## Desarrollo local
 
@@ -12,13 +12,11 @@ Flask 3 · SQLAlchemy 2 · Flask-Login · Flask-WTF · Jinja2 · Tailwind CSS v4
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env
-npm install
-npm run build          # compila app/static/css/tailwind.css
 FLASK_APP=wsgi.py flask db upgrade
 FLASK_APP=wsgi.py flask run
 ```
 
-Watch de CSS: `npm run dev`.
+Los estilos viven en `app/static/css/styles.css` (sin compilación).
 
 ## Tests
 

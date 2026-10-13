@@ -14,11 +14,11 @@ def send_submission_notification(submission) -> bool:
         return False
 
     msg = EmailMessage()
-    msg["Subject"] = f"Nuevo mensaje MLE — {submission.puesto}"
+    msg["Subject"] = f"Nuevo mensaje LALP — {submission.puesto}"
     msg["From"] = app.config.get("SMTP_USER") or mail_to
     msg["To"] = mail_to
     msg.set_content(
-        "Nuevo mensaje recibido en la web del MLE.\n\n"
+        "Nuevo mensaje recibido en la web del LALP.\n\n"
         f"Nombre: {submission.nombre}\n"
         f"Contacto: {submission.contacto}\n"
         f"Puesto: {submission.puesto}\n\n"

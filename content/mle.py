@@ -1,12 +1,12 @@
 MLE = {
     "nombre": "Movimiento Liberal Estudiantil",
-    "sigla": "MLE",
-    "lista": "Lista Liberal",
+    "sigla": "LALP",
+    "lista": "Lista Azul Liberal Proa",
     "lema": "Nada de promesas, puros resultados",
     "escuela": "Escuela Experimental con Énfasis en TIC — Córdoba capital",
     "contacto": {
-        "email": "contacto@mle.local",
-        "whatsapp": "#",
+        "email": "tgonzalezzalazar@escuelasproa.edu.ar",
+        "whatsapp": "351 796-2251",
         "instagram": "#",
     },
 }
@@ -23,7 +23,7 @@ SECCIONES = [
 
 NOSOTROS = {
     "intro": (
-        "El Movimiento Liberal Estudiantil (MLE) es una lista que propone un centro "
+        "La Lista Azul Liberal Proa (LALP) es una lista que propone un centro "
         "de estudiantes transparente, participativo y tecnológico, construido sobre "
         "la libertad individual, el mérito y la rendición de cuentas."
     ),
@@ -184,11 +184,11 @@ EQUIPO = {
     "presidente": "Tomás González Zalazar",
     "vicepresidente": "Santiago González Zalazar",
     "secretarias": [
-        ("Actas", "Por definir"),
-        ("Finanzas", "Por definir"),
-        ("Prensa, Difusión y Tecnología", "Por definir"),
-        ("Cultura y Eventos", "Por definir"),
-        ("Deportes y Recreación", "Por definir"),
+        ("Secretario General y de Prensa, Difusión y Tecnología", "Genaro Gilardotti"),
+        ("Encargado en Finanzas", "Simón Campos"),
+        ("Encargado en Deportes y Recreación", "Tobías Hurst"),
+        ("Encargado en Cultura y Eventos", "Lorenzo Martínez"),
+        ("Encargado en Actas", "Emanuel Dutruel"),
     ],
     "equipos": [
         "Organización",
@@ -200,13 +200,9 @@ EQUIPO = {
 
 # Puestos a los que se puede postular quien completa el formulario #sumate
 # (value, label). El value se guarda en la base de datos.
-# Presidente y vicepresidente NO son postulables: se definen por lista/elección.
+# Presidente, vicepresidente y secretarías NO son postulables: se definen por
+# lista/elección. Solo se puede postular a los equipos de trabajo.
 PUESTOS = [
-    ("secretaria-actas", "Secretaría de Actas"),
-    ("secretaria-finanzas", "Secretaría de Finanzas"),
-    ("secretaria-prensa", "Secretaría de Prensa, Difusión y Tecnología"),
-    ("secretaria-cultura", "Secretaría de Cultura y Eventos"),
-    ("secretaria-deportes", "Secretaría de Deportes y Recreación"),
     ("equipo-organizacion", "Equipo de Organización"),
     ("equipo-comunicacion", "Equipo de Comunicación y Diseño"),
     ("equipo-proyectos", "Equipo de Proyectos y Participación"),
