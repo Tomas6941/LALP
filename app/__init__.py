@@ -45,6 +45,8 @@ def create_app(config_name: str = "dev") -> Flask:
     if login_manager.user_callback is None:
         login_manager.user_loader(lambda user_id: None)
 
+    from app.models import Submission, RateLimitHit  # noqa: F401
+
     from app.routes.main import main_bp
 
     app.register_blueprint(main_bp)
