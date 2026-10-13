@@ -20,3 +20,14 @@ def test_lema_exact():
 
 def test_indicadores_ten():
     assert len(mle.INDICADORES) == 10
+
+
+def test_puestos_include_all_roles():
+    values = [v for v, _ in mle.PUESTOS]
+    assert "presidente" in values
+    assert "vicepresidente" in values
+    assert "colaborador" in values
+    # una por cada secretaría
+    for slug in ("secretaria-actas", "secretaria-finanzas", "secretaria-cultura", "secretaria-deportes"):
+        assert slug in values
+    assert len(mle.PUESTOS) == len(set(values))

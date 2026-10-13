@@ -3,7 +3,7 @@ from app.models import RateLimitHit, Submission
 
 
 def test_submission_mark_read(app):
-    s = Submission(nombre="Ana", contacto="ana@x.com", tipo="idea", mensaje="Hola mundo testing")
+    s = Submission(nombre="Ana", contacto="ana@x.com", puesto="idea", mensaje="Hola mundo testing")
     db.session.add(s)
     db.session.commit()
     assert s.leido is False

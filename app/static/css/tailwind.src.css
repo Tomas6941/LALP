@@ -17,6 +17,12 @@
 @layer base {
   html { scroll-behavior: smooth; }
   body { @apply bg-negro text-blanco font-sans antialiased; }
+  /* Tailwind v4 preflight hace transparentes los form controls sobre fondos
+     de color (bg-violeta, bg-violeta-oscuro). Base blanca + texto oscuro
+     garantiza legibilidad en cualquier superficie. */
+  input, select, textarea {
+    @apply bg-blanco text-negro;
+  }
   :focus-visible { @apply outline-none ring-2 ring-violeta-claro ring-offset-2 ring-offset-negro; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }

@@ -1,7 +1,7 @@
 <section id="sumate" class="bg-violeta px-4 py-20 text-blanco">
   <div class="mx-auto max-w-2xl">
     <h2 class="text-4xl font-black uppercase">Sumate</h2>
-    <p class="mt-2">Dejanos tu sugerencia, reclamo o idea. Leemos todo.</p>
+    <p class="mt-2">Sumate a la lista. Elegí el puesto al que te postulás y contanos por qué.</p>
     <form method="post" action="/sumate" data-contact-form class="mt-8 space-y-4">
       {{ form.hidden_tag() }}
       <div class="hidden" aria-hidden="true">
@@ -17,8 +17,8 @@
         {{ form.contacto(class="w-full rounded-card px-3 py-2 text-negro") }}
       </div>
       <div>
-        {{ form.tipo.label(class="block font-bold") }}
-        {{ form.tipo(class="w-full rounded-card px-3 py-2 text-negro") }}
+        {{ form.puesto.label(class="block font-bold") }}
+        {{ form.puesto(class="w-full rounded-card px-3 py-2") }}
       </div>
       <div>
         {{ form.mensaje.label(class="block font-bold") }}

@@ -198,6 +198,23 @@ EQUIPO = {
     ],
 }
 
+# Puestos a los que se puede postular quien completa el formulario #sumate
+# (value, label). El value se guarda en la base de datos.
+PUESTOS = [
+    ("presidente", "Presidente"),
+    ("vicepresidente", "Vicepresidente"),
+    ("secretaria-actas", "Secretaría de Actas"),
+    ("secretaria-finanzas", "Secretaría de Finanzas"),
+    ("secretaria-prensa", "Secretaría de Prensa, Difusión y Tecnología"),
+    ("secretaria-cultura", "Secretaría de Cultura y Eventos"),
+    ("secretaria-deportes", "Secretaría de Deportes y Recreación"),
+    ("equipo-organizacion", "Equipo de Organización"),
+    ("equipo-comunicacion", "Equipo de Comunicación y Diseño"),
+    ("equipo-proyectos", "Equipo de Proyectos y Participación"),
+    ("equipo-convivencia", "Equipo de Convivencia y Ciberseguridad"),
+    ("colaborador", "Colaborador (sin puesto definido)"),
+]
+
 PLAN_90 = [
     ("Días 1–15", [
         "Elección de representantes por curso",

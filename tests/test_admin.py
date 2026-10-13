@@ -21,7 +21,7 @@ def test_login_wrong_password(client):
 
 def test_login_success_and_list(client, app):
     with app.app_context():
-        db.session.add(Submission(nombre="Ana", contacto="a@x.com", tipo="idea",
+        db.session.add(Submission(nombre="Ana", contacto="a@x.com", puesto="presidente",
                                   mensaje="mensaje de prueba largo"))
         db.session.commit()
     resp = _login(client)
@@ -33,7 +33,7 @@ def test_login_success_and_list(client, app):
 
 def test_mark_read(client, app):
     with app.app_context():
-        db.session.add(Submission(nombre="Ana", contacto="a@x.com", tipo="idea",
+        db.session.add(Submission(nombre="Ana", contacto="a@x.com", puesto="presidente",
                                   mensaje="mensaje de prueba largo"))
         db.session.commit()
         sid = Submission.query.first().id

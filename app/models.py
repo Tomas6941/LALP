@@ -13,7 +13,7 @@ class Submission(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(120), nullable=False)
     contacto = db.Column(db.String(200), nullable=False)
-    tipo = db.Column(db.String(20), nullable=False, default="sugerencia")
+    puesto = db.Column(db.String(40), nullable=False, default="colaborador")
     mensaje = db.Column(db.Text, nullable=False)
     ip = db.Column(db.String(45))
     created_at = db.Column(db.DateTime, default=_utcnow, nullable=False)

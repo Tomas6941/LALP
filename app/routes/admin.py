@@ -7,12 +7,12 @@ from app.forms import LoginForm
 from app.models import Submission
 from app.services.ratelimit import check_rate_limit
 
+from content import mle
+
 admin_bp = Blueprint("admin", __name__, url_prefix="/admin")
 
 LOGIN_LIMIT = 10
 LOGIN_WINDOW = 900
-
-TIPO_LABELS = [("sugerencia", "Sugerencia"), ("reclamo", "Reclamo"), ("idea", "Idea")]
 
 
 def _client_ip():
@@ -50,11 +50,11 @@ def logout():
 @admin_bp.get("")
 @login_required
 def list_submissions():
-    tipo = request.args.get("tipo")
+    puesto = request.args.get("puesto")
     leido = request.args.get("leido")
     query = Submission.query
-    if tipo:
-        query = query.filter(Submission.tipo == tipo)
+    if puesto:
+        query = query.filter(Submission.puesto == puesto)
     if leido == "0":
         query = query.filter(Submission.leido.is_(False))
     elif leido == "1":
@@ -63,9 +63,9 @@ def list_submissions():
     return render_template(
         "admin/submissions.html",
         submissions=submissions,
-        tipo=tipo,
+        puesto=puesto,
         leido=leido,
-        tipo_labels=TIPO_LABELS,
+        puestos=mle.PUESTOS,
     )
 
 

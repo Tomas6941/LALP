@@ -10,11 +10,11 @@
     </form>
   </div>
   <form method="get" class="mt-6 flex flex-wrap gap-4 text-sm">
-    <label>Tipo
-      <select name="tipo" class="rounded-card bg-negro px-2 py-1 text-blanco">
+    <label>Puesto
+      <select name="puesto" class="rounded-card bg-negro px-2 py-1 text-blanco">
         <option value="">Todos</option>
-        {% for value, label in tipo_labels %}
-        <option value="{{ value }}" {% if tipo == value %}selected{% endif %}>{{ label }}</option>
+        {% for value, label in puestos %}
+        <option value="{{ value }}" {% if puesto == value %}selected{% endif %}>{{ label }}</option>
         {% endfor %}
       </select>
     </label>
@@ -31,7 +31,7 @@
     {% for s in submissions %}
     <article class="rounded-card border border-violeta-oscuro/40 p-5">
       <div class="flex flex-wrap items-center gap-3 text-sm text-violeta-claro">
-        <span class="rounded-full bg-violeta-oscuro/40 px-3 py-1">{{ s.tipo }}</span>
+        <span class="rounded-full bg-violeta-oscuro/40 px-3 py-1">{{ s.puesto }}</span>
         <span>{{ s.created_at.strftime("%Y-%m-%d %H:%M") }}</span>
         {% if s.leido %}<span class="rounded-full bg-violeta px-3 py-1 text-blanco">leído</span>{% endif %}
       </div>

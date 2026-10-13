@@ -18,7 +18,7 @@ def test_flow_submit_then_admin_sees_it(client, app):
     client.post("/sumate", data={
         "nombre": "E2E Tester",
         "contacto": "e2e@example.com",
-        "tipo": "reclamo",
+        "puesto": "colaborador",
         "mensaje": "Mensaje de prueba end to end",
         "website": "",
     })

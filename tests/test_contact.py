@@ -2,12 +2,12 @@ from app.extensions import db
 from app.models import Submission
 
 
-def _form(nombre="Ana Pérez", contacto="ana@example.com", tipo="idea",
+def _form(nombre="Ana Pérez", contacto="ana@example.com", puesto="colaborador",
           mensaje="Esta es una idea de prueba", website=""):
     return {
         "nombre": nombre,
         "contacto": contacto,
-        "tipo": tipo,
+        "puesto": puesto,
         "mensaje": mensaje,
         "website": website,
     }
@@ -19,8 +19,15 @@ def test_valid_submission_creates_row(client, app):
     with app.app_context():
         assert Submission.query.count() == 1
         s = Submission.query.first()
-        assert s.tipo == "idea"
+        assert s.puesto == "colaborador"
         assert s.leido is False
+
+
+def test_submission_with_puesto(client, app):
+    client.post("/sumate", data=_form(puesto="secretaria-prensa"))
+    with app.app_context():
+        s = Submission.query.first()
+        assert s.puesto == "secretaria-prensa"
 
 
 def test_honeypot_blocks(client, app):

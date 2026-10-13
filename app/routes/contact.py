@@ -43,7 +43,7 @@ def submit():
     submission = Submission(
         nombre=form.nombre.data.strip(),
         contacto=form.contacto.data.strip(),
-        tipo=form.tipo.data,
+        puesto=form.puesto.data,
         mensaje=form.mensaje.data.strip(),
         ip=ip,
     )

@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import SelectField, StringField, TextAreaField
 from wtforms.validators import InputRequired, Length
 
-TIPOS = [("sugerencia", "Sugerencia"), ("reclamo", "Reclamo"), ("idea", "Idea")]
+from content import mle
 
 
 class ContactForm(FlaskForm):
@@ -10,8 +10,15 @@ class ContactForm(FlaskForm):
     contacto = StringField(
         "Contacto (email o teléfono)", validators=[InputRequired(), Length(min=5, max=200)]
     )
-    tipo = SelectField("Tipo", choices=TIPOS, validators=[InputRequired()])
-    mensaje = TextAreaField("Mensaje", validators=[InputRequired(), Length(min=10, max=2000)])
+    puesto = SelectField(
+        "Puesto al que te postulás",
+        choices=mle.PUESTOS,
+        validators=[InputRequired()],
+    )
+    mensaje = TextAreaField(
+        "¿Por qué te sumás? (experiencia, ideas, disponibilidad)",
+        validators=[InputRequired(), Length(min=10, max=2000)],
+    )
     website = StringField("No completar")  # honeypot
 
 
