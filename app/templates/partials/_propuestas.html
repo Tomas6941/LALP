@@ -1,0 +1,27 @@
+<section id="propuestas" class="bg-negro px-4 py-20">
+  <div class="mx-auto max-w-6xl">
+    <h2 class="text-4xl font-black uppercase text-violeta-claro">Propuestas</h2>
+    <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {% for p in propuestas %}
+      <article data-card class="flex flex-col rounded-card border border-violeta-oscuro/40 p-6">
+        <h3 class="text-xl font-bold">{{ p.titulo }}</h3>
+        <p class="mt-3 text-sm">{{ p.objetivo }}</p>
+        <button data-card-toggle type="button" aria-expanded="false"
+                class="mt-4 self-start rounded-card bg-violeta px-4 py-2 text-sm font-bold hover:bg-violeta-oscuro">
+          Ver detalle
+        </button>
+        <div data-card-detail class="mt-4 hidden text-sm">
+          <ul class="list-disc space-y-1 pl-5">
+            {% for paso in p.pasos %}<li>{{ paso }}</li>{% endfor %}
+          </ul>
+          <dl class="mt-4 space-y-1 text-xs text-violeta-claro">
+            <div><dt class="inline font-bold">Responsable: </dt><dd class="inline">{{ p.responsable }}</dd></div>
+            <div><dt class="inline font-bold">Plazo: </dt><dd class="inline">{{ p.plazo }}</dd></div>
+            <div><dt class="inline font-bold">Depende de la escuela: </dt><dd class="inline">{{ p.depende_escuela }}</dd></div>
+          </dl>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>

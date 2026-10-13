@@ -1,0 +1,10 @@
+<section id="inicio" class="flex min-h-[85vh] flex-col items-center justify-center bg-gradient-to-b from-violeta to-violeta-oscuro px-4 text-center">
+  <img src="{{ url_for('static', filename='img/logo-mle.svg') }}" alt="{{ MLE.nombre }}" width="96" height="96">
+  <h1 class="mt-6 text-5xl font-black uppercase leading-none sm:text-7xl">{{ MLE.sigla }}</h1>
+  <p class="mt-2 text-xl font-bold">{{ MLE.nombre }} · {{ MLE.lista }}</p>
+  <p class="mt-4 max-w-xl text-2xl font-black">{{ MLE.lema }}</p>
+  <div class="mt-8 flex flex-wrap justify-center gap-4">
+    <a href="#propuestas" class="rounded-card bg-blanco px-6 py-3 font-bold text-negro hover:bg-violeta-claro">Conocé las propuestas</a>
+    <a href="#sumate" class="rounded-card border-2 border-blanco px-6 py-3 font-bold hover:bg-blanco hover:text-negro">Sumate</a>
+  </div>
+</section>

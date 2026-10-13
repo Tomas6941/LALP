@@ -1,0 +1,12 @@
+<section id="nosotros" class="mx-auto max-w-5xl px-4 py-20">
+  <h2 class="text-4xl font-black uppercase text-violeta-claro">Nosotros</h2>
+  <p class="mt-4 max-w-3xl text-lg">{{ NOSOTROS.intro }}</p>
+  <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {% for titulo, detalle in NOSOTROS.principios %}
+    <li class="rounded-card border border-violeta-oscuro/40 p-5">
+      <h3 class="font-bold text-violeta-claro">{{ titulo }}</h3>
+      <p class="mt-1 text-sm">{{ detalle }}</p>
+    </li>
+    {% endfor %}
+  </ul>
+</section>

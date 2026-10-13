@@ -1,0 +1,16 @@
+<header class="sticky top-0 z-50 border-b border-violeta-oscuro/40 bg-negro/90 backdrop-blur">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3" aria-label="Principal">
+    <a href="#inicio" class="flex items-center gap-2">
+      <img src="{{ url_for('static', filename='img/logo-mle.svg') }}" alt="" width="32" height="32">
+      <span class="text-sm font-bold uppercase tracking-wide">{{ MLE.sigla }}</span>
+    </a>
+    <button data-nav-toggle type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Abrir menú"
+            class="lg:hidden text-2xl leading-none">☰</button>
+    <ul id="nav-menu" data-nav-menu class="hidden absolute left-0 right-0 top-full flex-col gap-2 bg-negro px-4 py-4 lg:static lg:flex lg:flex-row lg:items-center lg:gap-6 lg:bg-transparent lg:p-0">
+      {% for id, label in SECCIONES %}
+      <li><a class="block py-1 hover:text-violeta-claro" href="#{{ id }}">{{ label }}</a></li>
+      {% endfor %}
+      <li><a class="inline-block rounded-card bg-violeta px-4 py-2 font-bold hover:bg-violeta-oscuro" href="#sumate">Sumate</a></li>
+    </ul>
+  </nav>
+</header>

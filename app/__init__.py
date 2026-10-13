@@ -38,8 +38,30 @@ def create_app(config_name: str = "dev") -> Flask:
     csrf.init_app(app)
     migrate.init_app(app, db)
 
+    # Flask-Login injects `current_user` into every template context and
+    # raises when no loader is configured. The admin auth module registers the
+    # real loader in a later task; until then provide a no-op loader so public
+    # pages render. Registering the real loader later overrides this one.
+    if login_manager.user_callback is None:
+        login_manager.user_loader(lambda user_id: None)
+
     from app.routes.main import main_bp
 
     app.register_blueprint(main_bp)
+
+    from content import mle
+
+    @app.context_processor
+    def inject_content():
+        return {
+            "MLE": mle.MLE,
+            "SECCIONES": mle.SECCIONES,
+            "NOSOTROS": mle.NOSOTROS,
+            "EQUIPO": mle.EQUIPO,
+            "PLAN_90": mle.PLAN_90,
+            "INDICADORES": mle.INDICADORES,
+            "REDES": mle.REDES,
+            "FOOTER_DISCLAIMER": mle.FOOTER_DISCLAIMER,
+        }
 
     return app
