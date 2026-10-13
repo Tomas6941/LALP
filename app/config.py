@@ -25,6 +25,7 @@ class Config:
     SMTP_PASS = os.environ.get("SMTP_PASS")
     MAIL_TO = os.environ.get("MAIL_TO")
     MAIL_SUPPRESS_SEND = False
+    SITE_URL = os.environ.get("SITE_URL", "http://localhost:5000")
 
 
 class DevConfig(Config):

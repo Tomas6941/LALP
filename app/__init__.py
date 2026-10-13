@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from sqlalchemy.pool import StaticPool
 
 from app.config import CONFIG_MAP
@@ -64,5 +64,29 @@ def create_app(config_name: str = "dev") -> Flask:
             "REDES": mle.REDES,
             "FOOTER_DISCLAIMER": mle.FOOTER_DISCLAIMER,
         }
+
+    @app.after_request
+    def set_security_headers(response):
+        response.headers["Content-Security-Policy"] = (
+            "default-src 'self'; img-src 'self' data:; "
+            "style-src 'self'; script-src 'self'; form-action 'self'; base-uri 'self'"
+        )
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        response.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
+        return response
+
+    @app.errorhandler(403)
+    def forbidden(_e):
+        return render_template("errors/403.html"), 403
+
+    @app.errorhandler(404)
+    def not_found(_e):
+        return render_template("errors/404.html"), 404
+
+    @app.errorhandler(500)
+    def server_error(_e):
+        return render_template("errors/500.html"), 500
 
     return app
