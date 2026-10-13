@@ -3,9 +3,19 @@ from datetime import timedelta
 from werkzeug.security import generate_password_hash
 
 
+def _database_url():
+    url = os.environ.get("DATABASE_URL", "sqlite:///mle.db")
+    # Vercel/Heroku style postgres:// -> postgresql+psycopg://
+    if url.startswith("postgres://"):
+        url = url.replace("postgres://", "postgresql+psycopg://", 1)
+    elif url.startswith("postgresql://"):
+        url = url.replace("postgresql://", "postgresql+psycopg://", 1)
+    return url
+
+
 class Config:
     SECRET_KEY = os.environ.get("SECRET_KEY", "dev-insecure-change-me")
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL", "sqlite:///mle.db")
+    SQLALCHEMY_DATABASE_URI = _database_url()
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     WTF_CSRF_ENABLED = True
     SESSION_COOKIE_HTTPONLY = True
