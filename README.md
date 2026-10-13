@@ -36,12 +36,18 @@ Editá `content/mle.py` para cambiar propuestas, equipo, cronograma, indicadores
 
 ## Deploy en Vercel
 
-1. Importá el repo en Vercel.
-2. Configurá las variables de entorno: `SECRET_KEY`, `DATABASE_URL` (Vercel Postgres /
-   Neon), `SITE_URL`, `ADMIN_USER`, `ADMIN_PASSWORD_HASH`, `SMTP_*`, `MAIL_TO`.
-3. Deploy. La función está en `api/index.py`; los estáticos se sirven desde `app/static`.
-4. Aplicá migraciones contra Postgres: `FLASK_APP=api/index.py flask db upgrade`
-   (o desde un job con `DATABASE_URL` de prod).
+Guía completa paso a paso: **[DEPLOY_VERCEL.md](DEPLOY_VERCEL.md)**.
+
+Resumen:
+
+1. Provisionar Postgres (Neon/Supabase) → `DATABASE_URL`.
+2. Importar el repo en Vercel y cargar las variables de entorno: `SECRET_KEY`,
+   `DATABASE_URL`, `ADMIN_USER`, `ADMIN_PASSWORD_HASH`, `SITE_URL`.
+3. Aplicar migraciones contra esa base: `python -m flask --app wsgi:app db upgrade`.
+4. Deploy.
+
+⚠️ SQLite no funciona en Vercel (filesystem de sólo lectura) y los estáticos deben
+vivir en `public/`. Ver el documento para los detalles.
 
 ## Seguridad
 
