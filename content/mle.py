@@ -194,7 +194,7 @@ EQUIPO = {
     # cada equipo cuando esté definido; hasta entonces deja "" para no mostrar
     # la columna derecha.
     "equipos": [
-        ("Organizador de los ", "Stefano Sarzotti"),
+        ("Organizador de los Equipos de trabajo", "Stefano Sarzotti"),
         ("Comunicación y Diseño", ""),
         ("Proyectos y Participación", ""),
         ("Convivencia y Ciberseguridad", ""),
