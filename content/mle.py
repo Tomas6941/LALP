@@ -190,11 +190,14 @@ EQUIPO = {
         ("Encargado en Cultura y Eventos", "Lorenzo Martínez"),
         ("Encargado en Actas", "Elías Gabriel Arce"),
     ],
+    # Equipos de trabajo: (equipo, responsable). Completá el responsable de
+    # cada equipo cuando esté definido; hasta entonces deja "" para no mostrar
+    # la columna derecha.
     "equipos": [
-        ("Organizador de equipos de trabajo", "Stefano Sarzotti"),
-        "Comunicación y Diseño",
-        "Proyectos y Participación",
-        "Convivencia y Ciberseguridad",
+        ("Organizador de los ", "Stefano Sarzotti"),
+        ("Comunicación y Diseño", ""),
+        ("Proyectos y Participación", ""),
+        ("Convivencia y Ciberseguridad", ""),
     ],
 }
 

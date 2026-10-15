@@ -888,21 +888,6 @@ button {
   color: var(--label-2);
 }
 
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 1.1rem;
-}
-
-.tag {
-  padding: 0.4rem 0.85rem;
-  border-radius: var(--r-pill);
-  background: var(--fill-1);
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
 /* --- 9. Tabla (transparencia) ------------------------------------------- */
 .table-card {
   background: var(--bg-1);

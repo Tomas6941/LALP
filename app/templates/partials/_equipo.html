@@ -26,9 +26,12 @@
     </ul>
 
     <h3 class="sec__subtitle" data-reveal>Equipos de trabajo</h3>
-    <ul class="tags" data-reveal>
-      {% for equipo in EQUIPO.equipos %}
-      <li class="tag">{{ equipo }}</li>
+    <ul class="list" data-reveal>
+      {% for equipo, responsable in EQUIPO.equipos %}
+      <li class="list__row">
+        <span class="list__label">{{ equipo }}</span>
+        {% if responsable %}<span class="list__value">{{ responsable }}</span>{% endif %}
+      </li>
       {% endfor %}
     </ul>
   </div>
