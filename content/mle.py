@@ -188,10 +188,10 @@ EQUIPO = {
         ("Encargado en Finanzas", "Simón Campos"),
         ("Encargado en Deportes y Recreación", "Tobías Hurst"),
         ("Encargado en Cultura y Eventos", "Lorenzo Martínez"),
-        ("Encargado en Actas", "Emanuel Dutruel"),
+        ("Encargado en Actas", "Elías Gabriel Arce"),
     ],
     "equipos": [
-        "Organización",
+        ("Organizador de equipos de trabajo", "Stefano Sarzotti"),
         "Comunicación y Diseño",
         "Proyectos y Participación",
         "Convivencia y Ciberseguridad",
