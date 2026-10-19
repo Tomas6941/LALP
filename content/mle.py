@@ -210,6 +210,12 @@ PUESTOS = [
     ("equipo-comunicacion", "Equipo de Comunicación y Diseño"),
     ("equipo-proyectos", "Equipo de Proyectos y Participación"),
     ("equipo-convivencia", "Equipo de Convivencia y Ciberseguridad"),
+    ("subencargado-secretaria-general", "Sub-encargado/a de Secretaría General"),
+    ("subencargado-secretaria-prensa", "Sub-encargado/a de Secretaría de Prensa y Difusión"),
+    ("subencargado-finanzas", "Sub-encargado/a de Finanzas"),
+    ("subencargado-deportes", "Sub-encargado/a de Deportes"),
+    ("subencargado-cultura-eventos", "Sub-encargado/a de Cultura y Eventos"),
+    ("subencargado-actas", "Sub-encargado/a de Actas"),
     ("colaborador", "Colaborador (sin puesto definido)"),
 ]
 
