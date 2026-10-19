@@ -7,7 +7,7 @@ MLE = {
     "contacto": {
         "email": "tgonzalezzalazar@escuelasproa.edu.ar",
         "whatsapp": "351 796-2251",
-        "instagram": "#",
+        "instagram": "https://www.instagram.com/lal.proa/",
     },
 }
 
@@ -255,9 +255,9 @@ INDICADORES = [
 ]
 
 REDES = [
-    {"nombre": "Instagram", "https://www.instagram.com/lal.proa/": "#"},
-    {"nombre": "WhatsApp", "https://wa.me/3517962251": "#"},
-    {"nombre": "Email", "gmail.com": "mailto:tgonzalezzalazar@escuelasproa.edu.ar"},
+    {"nombre": "Instagram", "url": "https://www.instagram.com/lal.proa/"},
+    {"nombre": "WhatsApp", "url": "https://wa.me/3517962251"},
+    {"nombre": "Email", "url": "mailto:tgonzalezzalazar@escuelasproa.edu.ar"},
 ]
 
 FOOTER_DISCLAIMER = (
