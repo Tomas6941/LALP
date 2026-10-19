@@ -255,9 +255,9 @@ INDICADORES = [
 ]
 
 REDES = [
-    {"nombre": "Instagram", "url": "#"},
-    {"nombre": "WhatsApp", "url": "#"},
-    {"nombre": "Email", "url": "mailto:contacto@mle.local"},
+    {"nombre": "Instagram", "https://www.instagram.com/lal.proa/": "#"},
+    {"nombre": "WhatsApp", "https://wa.me/3517962251": "#"},
+    {"nombre": "Email", "gmail.com": "mailto:tgonzalezzalazar@escuelasproa.edu.ar"},
 ]
 
 FOOTER_DISCLAIMER = (
