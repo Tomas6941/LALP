@@ -185,18 +185,18 @@ EQUIPO = {
     "vicepresidente": "Santiago González Zalazar",
     "secretarias": [
         ("Secretario General y de Prensa, Difusión y Tecnología", "Genaro Gilardotti"),
-        ("Encargado en Finanzas", "Simón Campos"),
-        ("Encargado en Deportes y Recreación", "Tobías Hurst"),
+        ("Encargado en Finanzas", "Simón Leonel Campos"),
+        ("Encargado en Deportes y Recreación", "Juan Pablo Juncos"),
         ("Encargado en Cultura y Eventos", "Lorenzo Martínez"),
-        ("Encargado en Actas", "Elías Gabriel Arce"),
+        ("Encargado en Actas", "Elías Gabriel Arce Martínez"),
     ],
     # Equipos de trabajo: (equipo, responsable). Completá el responsable de
     # cada equipo cuando esté definido; hasta entonces deja "" para no mostrar
     # la columna derecha.
     "equipos": [
         ("Organizador de los Equipos de trabajo", "Stefano Sarzotti"),
-        ("Comunicación y Diseño", ""),
-        ("Proyectos y Participación", ""),
+        ("Comunicación y Diseño", "Malena Celeste Paredes"),
+        ("Proyectos y Participación", "Lautaro Valentín Allende"),
         ("Convivencia y Ciberseguridad", ""),
     ],
 }
