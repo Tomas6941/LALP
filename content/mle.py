@@ -45,26 +45,29 @@ PROPUESTAS = [
         "objetivo": "Digitalizar la gestión del centro para que la información esté disponible siempre.",
         "problema": (
             "Hoy la información del centro vive en pasillos, capturas de WhatsApp y "
-            "papeles que se pierden: nadie sabe qué se resolvió, qué está pendiente ni "
-            "a quién reclamar. Eso genera desconfianza, rumores y reclamos que se "
-            "repiten sin respuesta."
-        ),
+            "papeles que se pierden: nadie sabe qué se resolvió, qué está pendiente, "
+            "cuanto es el presupuesto, etc. Eso genera desconfianza, rumores y reclamos "
+            "que se repiten sin respuesta. También aquellos estudiantes que le proponen "
+            "algo al centro, no saben si su idea fue evaluada, aprobada o descartada, y "
+            "se desaniman a participar."
+        ),  
         "pasos": [
             "Diseñar un sitio con las propuestas, actas, balances y el estado de cada reclamo.",
+            "Diseñar una sección donde los estudiantes puedan presentar proyectos y ver su estado."
+            "Diseñar una sección donde los estudiantes puedan ver el presupuesto del centro para "
+            "ver si son capaces de financiar su proyecto.",
             "Abrir un canal único de reclamos con número de seguimiento y plazo de respuesta.",
             "Cargar actas y balances en formato abierto, sin tener que pedirlos.",
             "Capacitar al equipo del centro para mantenerlo actualizado cada semana.",
         ],
         "recursos": (
-            "Un sitio web gratuito o de bajo costo, un correo institucional, acceso a "
-            "internet y equipo de la escuela, y 2 horas semanales del equipo de Prensa "
-            "y Tecnología."
+            "Una billetera digital y un correo institucional. "
         ),
         "responsable": "Secretaría de Prensa, Difusión y Tecnología",
         "plazo": "Días 16–30",
         "depende_escuela": (
-            "Sí — requiere acceso a internet, equipos y autorización para publicar "
-            "información institucional."
+            "Sí — autorización para publicar información institucional."
+            
         ),
     },
     {
@@ -87,13 +90,12 @@ PROPUESTAS = [
             "Responder por escrito cualquier consulta sobre un gasto.",
         ],
         "recursos": (
-            "Una planilla o sistema gratuito de registro, acceso a los movimientos de "
-            "la cuenta del centro, celular o escáner para digitalizar comprobantes y "
-            "el trabajo del Encargado en Finanzas."
+            "Una billetera virtual con acceso compartido al secretario de Finanzas,"
+            "escáner para digitalizar comprobantes y subirlos al historial de gastos."
         ),
         "responsable": "Encargado en Finanzas",
         "plazo": "Continuo desde el día 1",
-        "depende_escuela": "Parcial — requiere acceso a la cuenta y los comprobantes del centro.",
+        "depende_escuela": "Parcial — requiere billetera virtual y autorización a mostrar el presupuesto.",
     },
     {
         "id": "presupuesto-participativo",
@@ -161,9 +163,9 @@ PROPUESTAS = [
         "titulo": "Banco de proyectos estudiantiles",
         "icono": "lightbulb",
         "objetivo": (
-            "Crear un sistema donde cualquier alumno pueda presentar iniciativas. "
-            "Los proyectos se evaluarán por su viabilidad, costo e impacto, sin "
-            "importar quién los proponga."
+            "Crear una sección en el centro digital donde cualquier alumno pueda "
+            "presentar iniciativas. Los proyectos se evaluarán por su viabilidad, "
+            "costo e impacto, sin importar quién los proponga."
         ),
         "problema": (
             "Las ideas de los alumnos se pierden en el pasillo: no hay lugar donde "
@@ -171,14 +173,13 @@ PROPUESTAS = [
             "se aprobó. Todo depende de quién conoce a quién."
         ),
         "pasos": [
-            "Abrir un registro público de proyectos con formato simple.",
+            "Diseñar una sección en la web para proyectos con formato simple.",
             "Evaluar cada proyecto por viabilidad, costo e impacto, con criterios publicados.",
             "Publicar el estado de cada proyecto: evaluado, aprobado o en ejecución, con fundamentos.",
             "Acompañar la ejecución de los aprobados hasta su resultado final.",
         ],
         "recursos": (
-            "Un formulario o planilla gratuita, criterios de evaluación escritos, una "
-            "reunión mensual de evaluación y el trabajo del Equipo de Proyectos y "
+            "Reunión mensual de evaluación y el trabajo del Equipo de Proyectos y "
             "Participación."
         ),
         "responsable": "Equipo de Proyectos y Participación",
@@ -195,8 +196,8 @@ PROPUESTAS = [
             "El Centro no debe obligar a nadie a compartir una postura política."
         ),
         "problema": (
-            "Cuando el centro se vuelve voz de una sola facción, los estudiantes que "
-            "piensan distinto se callan o se desentienden. El centro debe representar "
+            "Cuando el centro se vuelve voz de una sola ideología, los estudiantes que "
+            "piensan distinto se callan para evitar repudio. El centro debe representar "
             "a todo el alumnado; sin pluralismo, la política escolar se vuelve exclusión."
         ),
         "pasos": [
@@ -348,7 +349,7 @@ EQUIPO = {
     # la columna derecha.
     "equipos": [
         ("Organizador de los Equipos de trabajo", "Stefano Sarzotti"),
-        ("Comunicación y Diseño", "Malena Celeste Paredes"),
+        ("Comunicación y Diseño", ""),
         ("Proyectos y Participación", "Lautaro Valentín Allende"),
         ("Convivencia y Ciberseguridad", ""),
     ],
