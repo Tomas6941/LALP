@@ -753,6 +753,15 @@ button {
   transform: rotate(180deg);
 }
 
+/* La grilla estira cada fila a la card más alta. Mientras una propuesta está
+   desplegada (o cerrándose), la que crece o colapsa mide su propio contenido
+   en vez de estirarse a la fila: sus compañeras conservan la altura congelada
+   por JS, así que sólo se desplazan las filas de abajo. */
+.card--disclosure.is-open,
+.card--disclosure.is-closing {
+  align-self: start;
+}
+
 .disclosure__panel {
   display: grid;
   grid-template-rows: 0fr;

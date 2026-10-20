@@ -100,20 +100,155 @@
     marcarActivo();
   }
 
-  /* --- Disclosures de propuestas -------------------------------------- */
+  /* --- Disclosures de propuestas --------------------------------------
+     La grilla estira cada fila a la card más alta, así que al desplegar una
+     propuesta se estiraban también sus compañeras de fila. Para que sólo se
+     desplacen las filas de abajo: al abrir se congela la altura previa de las
+     cerradas (la fila en su estado normal) y la abierta mide su contenido.
+     Al volver a cerrar todo, se liberan las alturas. */
+  var panelMs = reduceMotion ? 0 : 340; // duración del panel + margen
+  var grillas = [];
+  var alturasPorGrilla = new WeakMap(); // grilla -> number[] | null
+  var cierresPorCard = new WeakMap(); // card -> timeout del cierre
+
+  var cardsDe = function (grid) {
+    return Array.prototype.slice.call(grid.querySelectorAll("[data-card]"));
+  };
+
+  // Abierta o cerrándose: las dos siguen creciendo o colapsando con el panel.
+  var estaAnimandose = function (card) {
+    return (
+      card.classList.contains("is-open") ||
+      card.classList.contains("is-closing")
+    );
+  };
+
+  var congelarAlturas = function (grid) {
+    var previas = alturasPorGrilla.get(grid);
+    if (!previas) return;
+    cardsDe(grid).forEach(function (card, i) {
+      var alto = previas[i] + "px";
+      card.style.minHeight = alto;
+      card.style.height = estaAnimandose(card) ? "" : alto;
+    });
+  };
+
+  var liberarAlturas = function (grid) {
+    alturasPorGrilla.set(grid, null);
+    cardsDe(grid).forEach(function (card) {
+      card.style.height = "";
+      card.style.minHeight = "";
+      card.style.alignSelf = "";
+    });
+  };
+
+  var aplicarAlturas = function (grid) {
+    if (cardsDe(grid).some(estaAnimandose)) congelarAlturas(grid);
+    else liberarAlturas(grid);
+  };
+
+  // Con un resize el texto cambia de línea y las alturas congeladas quedan
+  // viejas: se remiden las cerradas en su estado natural y se re-congelan.
+  var remedirGrilla = function (grid) {
+    var previas = alturasPorGrilla.get(grid);
+    if (!previas) return;
+    var cards = cardsDe(grid);
+
+    cards.forEach(function (card) {
+      if (estaAnimandose(card)) return;
+      card.style.height = "auto";
+      card.style.minHeight = "0";
+      card.style.alignSelf = "start";
+    });
+
+    // Una sola pasada de layout: posición -> alto natural mayor de esa fila.
+    var tops = cards.map(function (card) {
+      return card.offsetTop;
+    });
+    var porFila = {};
+    cards.forEach(function (card, i) {
+      if (estaAnimandose(card)) return;
+      porFila[tops[i]] = Math.max(porFila[tops[i]] || 0, card.offsetHeight);
+    });
+
+    var nuevas = cards.map(function (card, i) {
+      var alto = porFila[tops[i]];
+      var activa = estaAnimandose(card);
+      card.style.alignSelf = "";
+      if (alto === undefined) {
+        // Fila sin compañeras cerradas: sólo la abierta, que mide su contenido.
+        card.style.height = activa ? "" : previas[i] + "px";
+        card.style.minHeight = activa ? "" : previas[i] + "px";
+        return previas[i];
+      }
+      card.style.height = activa ? "" : alto + "px";
+      card.style.minHeight = alto + "px";
+      return alto;
+    });
+
+    alturasPorGrilla.set(grid, nuevas);
+  };
+
   document.querySelectorAll("[data-card-toggle]").forEach(function (btn) {
     var card = btn.closest("[data-card]");
     if (!card) return;
+    var grid = card.closest(".cards");
     var detail = card.querySelector("[data-card-detail]");
     var label = btn.querySelector("[data-card-label]");
 
+    if (grid && grillas.indexOf(grid) === -1) grillas.push(grid);
+
     btn.addEventListener("click", function () {
-      var open = !card.classList.contains("is-open");
-      card.classList.toggle("is-open", open);
-      if (detail) detail.classList.toggle("is-open", open);
-      btn.setAttribute("aria-expanded", String(open));
-      if (label) label.textContent = open ? "Ocultar detalle" : "Ver detalle";
+      var abierto = !card.classList.contains("is-open");
+
+      // Se mide antes de abrir: es la fila en su estado normal, la altura
+      // exacta que sus compañeras tienen que conservar.
+      if (abierto && grid && !alturasPorGrilla.get(grid)) {
+        alturasPorGrilla.set(
+          grid,
+          cardsDe(grid).map(function (c) {
+            return c.offsetHeight;
+          })
+        );
+      }
+
+      var cierre = cierresPorCard.get(card);
+      if (cierre) {
+        clearTimeout(cierre);
+        cierresPorCard.delete(card);
+      }
+
+      card.classList.toggle("is-open", abierto);
+      card.classList.toggle("is-closing", !abierto);
+      if (detail) detail.classList.toggle("is-open", abierto);
+      btn.setAttribute("aria-expanded", String(abierto));
+      if (label) label.textContent = abierto ? "Ocultar detalle" : "Ver detalle";
+
+      if (!grid) return;
+
+      if (!abierto) {
+        // Sigue "is-closing" hasta que el panel termina de colapsar: si no,
+        // sus compañeras se estirarían con la altura que se acaba de soltar.
+        cierresPorCard.set(
+          card,
+          setTimeout(function () {
+            cierresPorCard.delete(card);
+            card.classList.remove("is-closing");
+            aplicarAlturas(grid);
+          }, panelMs)
+        );
+      }
+
+      aplicarAlturas(grid);
     });
+  });
+
+  var remedicion = 0;
+  window.addEventListener("resize", function () {
+    clearTimeout(remedicion);
+    remedicion = setTimeout(function () {
+      grillas.forEach(remedirGrilla);
+    }, 150);
   });
 
   /* --- Reveals al hacer scroll ---------------------------------------- */
