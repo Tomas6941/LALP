@@ -2,7 +2,7 @@
   <div class="contenedor">
     <header class="sec__head" data-reveal>
       <h2 class="sec__title">Nuestras propuestas</h2>
-      <p class="sec__sub">Diez compromisos concretos, con responsable plazo y dependencia institucional.</p>
+      <p class="sec__sub">Diez compromisos concretos: problema, implementación, responsable, plazo y recursos.</p>
     </header>
 
     <div class="cards cards--3">
@@ -20,14 +20,39 @@
         <div class="disclosure__panel" id="detalle-{{ p.id }}" data-card-detail>
           <div class="disclosure__inner">
             <div class="disclosure__content">
-              <ul class="bullets">
-                {% for paso in p.pasos %}<li>{{ paso }}</li>{% endfor %}
-              </ul>
-              <dl class="meta">
-                <div class="meta__row"><dt>Responsable</dt><dd>{{ p.responsable }}</dd></div>
-                <div class="meta__row"><dt>Plazo</dt><dd>{{ p.plazo }}</dd></div>
-                <div class="meta__row"><dt>Depende de la escuela</dt><dd>{{ p.depende_escuela }}</dd></div>
-              </dl>
+
+              <div class="detail">
+                <h4 class="detail__h">Qué problema resuelve</h4>
+                <p class="detail__p">{{ p.problema }}</p>
+              </div>
+
+              <div class="detail">
+                <h4 class="detail__h">Cómo se va a implementar</h4>
+                <ul class="bullets">
+                  {% for paso in p.pasos %}<li>{{ paso }}</li>{% endfor %}
+                </ul>
+              </div>
+
+              <div class="detail">
+                <h4 class="detail__h">Quién se responsabiliza</h4>
+                <p class="detail__p">{{ p.responsable }}</p>
+              </div>
+
+              <div class="detail">
+                <h4 class="detail__h">Cuándo se puede realizar</h4>
+                <p class="detail__p">{{ p.plazo }}</p>
+              </div>
+
+              <div class="detail">
+                <h4 class="detail__h">Qué recursos necesita</h4>
+                <p class="detail__p">{{ p.recursos }}</p>
+              </div>
+
+              <div class="detail">
+                <h4 class="detail__h">Qué depende de la autorización de la escuela</h4>
+                <p class="detail__p">{{ p.depende_escuela }}</p>
+              </div>
+
             </div>
           </div>
         </div>

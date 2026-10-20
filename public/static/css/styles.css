@@ -780,6 +780,24 @@ button {
   padding-top: 1.15rem;
 }
 
+/* Bloques del detalle de propuesta */
+.detail + .detail {
+  margin-top: 1rem;
+}
+
+.detail__h {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--label);
+  margin-bottom: 0.3rem;
+}
+
+.detail__p {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--label-2);
+}
+
 .bullets {
   display: grid;
   gap: 0.4rem;
@@ -792,31 +810,6 @@ button {
 
 .bullets ::marker {
   color: var(--accent);
-}
-
-.meta {
-  display: grid;
-  gap: 0.55rem;
-  margin-top: 1.15rem;
-}
-
-.meta__row {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  font-size: 0.8125rem;
-}
-
-.meta dt {
-  flex-shrink: 0;
-  color: var(--label-2);
-}
-
-.meta dd {
-  margin: 0;
-  text-align: right;
-  color: var(--label);
 }
 
 /* --- 8. Listas agrupadas (inset) ---------------------------------------- */

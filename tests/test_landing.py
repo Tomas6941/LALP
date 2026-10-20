@@ -19,3 +19,19 @@ def test_index_lists_all_propuestas(client):
     body = client.get("/").get_data(as_text=True)
     for p in mle.PROPUESTAS:
         assert p["titulo"] in body
+
+
+def test_index_detalle_propuestas_has_six_blocks(client):
+    body = client.get("/").get_data(as_text=True)
+    for label in (
+        "Qué problema resuelve",
+        "Cómo se va a implementar",
+        "Quién se responsabiliza",
+        "Cuándo se puede realizar",
+        "Qué recursos necesita",
+        "Qué depende de la autorización de la escuela",
+    ):
+        assert label in body
+    for p in mle.PROPUESTAS:
+        assert p["problema"] in body
+        assert p["recursos"] in body

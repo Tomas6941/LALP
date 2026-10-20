@@ -4,8 +4,11 @@ from content import mle
 def test_ten_propuestas_with_required_fields():
     assert len(mle.PROPUESTAS) == 10
     for p in mle.PROPUESTAS:
-        for key in ("id", "titulo", "objetivo", "pasos", "responsable", "plazo", "depende_escuela"):
-            assert key in p
+        for key in (
+            "id", "titulo", "objetivo", "problema", "pasos", "recursos",
+            "responsable", "plazo", "depende_escuela",
+        ):
+            assert key in p, f"{p.get('id')} sin campo {key}"
         assert isinstance(p["pasos"], list) and p["pasos"]
 
 
