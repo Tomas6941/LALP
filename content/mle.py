@@ -184,11 +184,12 @@ EQUIPO = {
     "presidente": "Tomás González Zalazar",
     "vicepresidente": "Santiago González Zalazar",
     "secretarias": [
-        ("Secretario General y de Prensa, Difusión y Tecnología", "Genaro Gilardotti"),
-        ("Encargado en Finanzas", "Simón Leonel Campos"),
-        ("Encargado en Deportes y Recreación", "Juan Pablo Juncos"),
-        ("Encargado en Cultura y Eventos", "Lorenzo Martínez"),
-        ("Encargado en Actas", "Elías Gabriel Arce Martínez"),
+        ("Secretarios General", "Genaro Gilardotti y Facundo Bazan"),
+        ("Secretario de Prensa, Difusión y Tecnología", "Genaro Gilardotti y Juan Abdala"),
+        ("Encargado en Finanzas", "Simón Leonel Campos y Ariadny Valeria Diaz Rodriguez "),
+        ("Encargado en Deportes y Recreación", "Juan Pablo Juncos y Maximo Lujan Guzzi"),
+        ("Encargado en Cultura y Eventos", "Lorenzo Martínez y Miranda Von Eberan Plutman"),
+        ("Encargado en Actas", "Elías Gabriel Arce Martínez y Tobias Hürst Altamirano"),
     ],
     # Equipos de trabajo: (equipo, responsable). Completá el responsable de
     # cada equipo cuando esté definido; hasta entonces deja "" para no mostrar
