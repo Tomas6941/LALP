@@ -5,17 +5,19 @@
       <p class="sec__sub">Diez compromisos concretos: problema, implementación, responsable, plazo y recursos.</p>
     </header>
 
-    <div class="cards cards--3">
+    <div class="cards cards--3 cards--propuestas" data-card-grid data-cols="3">
       {% for p in propuestas %}
       <article class="card card--disclosure" data-card data-reveal>
-        <h3 class="card__title">{{ p.titulo }}</h3>
-        <p class="card__text">{{ p.objetivo }}</p>
+        <div class="card__main">
+          <h3 class="card__title">{{ p.titulo }}</h3>
+          <p class="card__text">{{ p.objetivo }}</p>
 
-        <button class="disclosure" data-card-toggle type="button"
-                aria-expanded="false" aria-controls="detalle-{{ p.id }}">
-          <span data-card-label>Ver detalle</span>
-          <svg class="disclosure__chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
+          <button class="disclosure" data-card-toggle type="button"
+                  aria-expanded="false" aria-controls="detalle-{{ p.id }}">
+            <span data-card-label>Ver detalle</span>
+            <svg class="disclosure__chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+        </div>
 
         <div class="disclosure__panel" id="detalle-{{ p.id }}" data-card-detail>
           <div class="disclosure__inner">
