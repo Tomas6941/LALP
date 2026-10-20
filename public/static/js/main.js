@@ -101,118 +101,98 @@
   }
 
   /* --- Disclosures de propuestas --------------------------------------
-     Grilla rígida de 3 columnas. Al abrir una propuesta:
-     - las tarjetas de los costados (misma fila) se quedan en su lugar;
-     - las filas de abajo bajan; las de arriba no se mueven.
-
-     Cómo: cada tarjeta sale del flujo (position: absolute en CSS) y main.js
-     le fija --x/--y según su columna y el borde inferior de la fila previa.
-     El CSS compone `transform: translate(var(--x), var(--y))` con transición,
-     así que reposicionar es sólo animar transform: sin reflow y sin que las
-     filas del grid se estiren entre sí.
-
-     El ancho, que antes daba el grid, lo fija también el JS (y se recalcula
-     en `resize`). */
+     La grilla estira cada fila a la card más alta, así que al desplegar una
+     propuesta se estiraban también sus compañeras de fila. Para que sólo se
+     desplacen las filas de abajo: al abrir se congela la altura previa de las
+     cerradas (la fila en su estado normal) y la abierta mide su contenido.
+     Al volver a cerrar todo, se liberan las alturas. */
+  var panelMs = reduceMotion ? 0 : 340; // duración del panel + margen
   var grillas = [];
+  var alturasPorGrilla = new WeakMap(); // grilla -> number[] | null
+  var cierresPorCard = new WeakMap(); // card -> timeout del cierre
 
   var cardsDe = function (grid) {
     return Array.prototype.slice.call(grid.querySelectorAll("[data-card]"));
   };
 
-  var aNumero = function (v) {
-    var n = parseFloat(v);
-    return isNaN(n) ? 0 : n;
+  // Abierta o cerrándose: las dos siguen creciendo o colapsando con el panel.
+  var estaAnimandose = function (card) {
+    return (
+      card.classList.contains("is-open") ||
+      card.classList.contains("is-closing")
+    );
   };
 
-  var columnasDe = function (grid) {
-    return Math.max(1, parseInt(grid.getAttribute("data-cols"), 10) || 1);
+  var congelarAlturas = function (grid) {
+    var previas = alturasPorGrilla.get(grid);
+    if (!previas) return;
+    cardsDe(grid).forEach(function (card, i) {
+      var alto = previas[i] + "px";
+      card.style.minHeight = alto;
+      card.style.height = estaAnimandose(card) ? "" : alto;
+    });
   };
 
-  // Alto que ocupa una card en la grilla. No sirve `offsetHeight` a secas:
-  // abrir y cerrar animan grid-template-rows, y en el frame del click el
-  // layout todavía es el viejo. En cambio el bloque de arriba (.card__main),
-  // el padding y el gap son constantes; sólo el panel varía, y su contenido
-  // se mide con scrollHeight (estable en cualquier punto de la animación):
-  //
-  //   alto = main + padding + gap + (abierto ? contenido del panel : 0)
-  var altoDe = function (card) {
-    var main = card.querySelector(".card__main");
-    var inner = card.querySelector("[data-card-detail] .disclosure__inner");
-    if (!main || !inner) return card.offsetHeight;
-
-    var cs = getComputedStyle(card);
-    var padding = aNumero(cs.paddingTop) + aNumero(cs.paddingBottom);
-    var gap = aNumero(cs.rowGap);
-    var abierto = card.classList.contains("is-open");
-
-    return main.offsetHeight + padding + gap + (abierto ? inner.scrollHeight : 0);
+  var liberarAlturas = function (grid) {
+    alturasPorGrilla.set(grid, null);
+    cardsDe(grid).forEach(function (card) {
+      card.style.height = "";
+      card.style.minHeight = "";
+      card.style.alignSelf = "";
+    });
   };
 
-  // Recoloca toda la grilla en filas rígidas: cada fila la marca la card más
-  // alta de esa fila (x por columna, y por el borde inferior de la anterior).
-  // `sinAnimacion` se usa al medir de nuevo (carga, fuentes, resize): ahí el
-  // salto debe ser instantáneo, no un deslizamiento.
-  var colocar = function (grid, sinAnimacion) {
-    var cols = columnasDe(grid);
-    var borde = grid.getBoundingClientRect().width;
-    var gap = aNumero(getComputedStyle(grid).gap);
-    var ancho = (borde - gap * (cols - 1)) / cols;
+  var aplicarAlturas = function (grid) {
+    if (cardsDe(grid).some(estaAnimandose)) congelarAlturas(grid);
+    else liberarAlturas(grid);
+  };
+
+  // Con un resize el texto cambia de línea y las alturas congeladas quedan
+  // viejas: se remiden las cerradas en su estado natural y se re-congelan.
+  var remedirGrilla = function (grid) {
+    var previas = alturasPorGrilla.get(grid);
+    if (!previas) return;
     var cards = cardsDe(grid);
-    var alturas = [];
-    var y = 0;
-    var i;
 
-    if (sinAnimacion) grid.classList.add("cards--reposicionando");
+    cards.forEach(function (card) {
+      if (estaAnimandose(card)) return;
+      card.style.height = "auto";
+      card.style.minHeight = "0";
+      card.style.alignSelf = "start";
+    });
 
-    // 1) Fijar el ancho antes de medir: cambia el alto del texto.
-    for (i = 0; i < cards.length; i++) cards[i].style.width = ancho + "px";
+    // Una sola pasada de layout: posición -> alto natural mayor de esa fila.
+    var tops = cards.map(function (card) {
+      return card.offsetTop;
+    });
+    var porFila = {};
+    cards.forEach(function (card, i) {
+      if (estaAnimandose(card)) return;
+      porFila[tops[i]] = Math.max(porFila[tops[i]] || 0, card.offsetHeight);
+    });
 
-    // 2) Medir el alto real de cada card (estado lógico, no animado).
-    for (i = 0; i < cards.length; i++) alturas.push(altoDe(cards[i]));
-
-    // 3) Colocar en filas rígidas y fijar el alto de la grilla.
-    for (i = 0; i < cards.length; i++) {
-      var fila = Math.floor(i / cols);
-      var col = i % cols;
-
-      if (col === 0 && fila > 0) {
-        // Borde superior de esta fila: alto máximo de la fila anterior.
-        var previo = 0;
-        for (var k = (fila - 1) * cols; k < fila * cols && k < cards.length; k++) {
-          previo = Math.max(previo, alturas[k]);
-        }
-        y += previo + gap;
+    var nuevas = cards.map(function (card, i) {
+      var alto = porFila[tops[i]];
+      var activa = estaAnimandose(card);
+      card.style.alignSelf = "";
+      if (alto === undefined) {
+        // Fila sin compañeras cerradas: sólo la abierta, que mide su contenido.
+        card.style.height = activa ? "" : previas[i] + "px";
+        card.style.minHeight = activa ? "" : previas[i] + "px";
+        return previas[i];
       }
+      card.style.height = activa ? "" : alto + "px";
+      card.style.minHeight = alto + "px";
+      return alto;
+    });
 
-      cards[i].style.setProperty("--x", col * (ancho + gap) + "px");
-      cards[i].style.setProperty("--y", y + "px");
-    }
-
-    var ultimaFila = Math.floor((cards.length - 1) / cols);
-    var ultimoAlto = 0;
-    for (i = ultimaFila * cols; i < cards.length; i++) {
-      ultimoAlto = Math.max(ultimoAlto, alturas[i]);
-    }
-    grid.style.height = y + ultimoAlto + "px";
-
-    if (sinAnimacion) {
-      void grid.offsetWidth; // fuerza reflow para asentar la posición
-      grid.classList.remove("cards--reposicionando");
-    }
-  };
-
-  var rehacer = function (grid) {
-    if (grid) colocar(grid);
-  };
-
-  var reposicionar = function (grid) {
-    if (grid) colocar(grid, true);
+    alturasPorGrilla.set(grid, nuevas);
   };
 
   document.querySelectorAll("[data-card-toggle]").forEach(function (btn) {
     var card = btn.closest("[data-card]");
     if (!card) return;
-    var grid = card.closest("[data-card-grid]") || card.closest(".cards");
+    var grid = card.closest(".cards");
     var detail = card.querySelector("[data-card-detail]");
     var label = btn.querySelector("[data-card-label]");
 
@@ -220,36 +200,56 @@
 
     btn.addEventListener("click", function () {
       var abierto = !card.classList.contains("is-open");
+
+      // Se mide antes de abrir: es la fila en su estado normal, la altura
+      // exacta que sus compañeras tienen que conservar.
+      if (abierto && grid && !alturasPorGrilla.get(grid)) {
+        alturasPorGrilla.set(
+          grid,
+          cardsDe(grid).map(function (c) {
+            return c.offsetHeight;
+          })
+        );
+      }
+
+      var cierre = cierresPorCard.get(card);
+      if (cierre) {
+        clearTimeout(cierre);
+        cierresPorCard.delete(card);
+      }
+
       card.classList.toggle("is-open", abierto);
+      card.classList.toggle("is-closing", !abierto);
       if (detail) detail.classList.toggle("is-open", abierto);
       btn.setAttribute("aria-expanded", String(abierto));
       if (label) label.textContent = abierto ? "Ocultar detalle" : "Ver detalle";
-      rehacer(grid);
+
+      if (!grid) return;
+
+      if (!abierto) {
+        // Sigue "is-closing" hasta que el panel termina de colapsar: si no,
+        // sus compañeras se estirarían con la altura que se acaba de soltar.
+        cierresPorCard.set(
+          card,
+          setTimeout(function () {
+            cierresPorCard.delete(card);
+            card.classList.remove("is-closing");
+            aplicarAlturas(grid);
+          }, panelMs)
+        );
+      }
+
+      aplicarAlturas(grid);
     });
   });
 
-  // El ancho y las alturas dependen del viewport y de las fuentes: se
-  // recoloca al terminar de cargar, cuando las fuentes están listas y al
-  // redimensionar.
-  var recolocarTodas = function () {
-    window.requestAnimationFrame(function () {
-      grillas.forEach(reposicionar);
-    });
-  };
-
-  window.addEventListener("load", recolocarTodas);
-
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(recolocarTodas);
-  }
-
-  var remide = 0;
+  var remedicion = 0;
   window.addEventListener("resize", function () {
-    clearTimeout(remide);
-    remide = setTimeout(recolocarTodas, 120);
+    clearTimeout(remedicion);
+    remedicion = setTimeout(function () {
+      grillas.forEach(remedirGrilla);
+    }, 150);
   });
-
-  grillas.forEach(reposicionar);
 
   /* --- Reveals al hacer scroll ---------------------------------------- */
   var reveals = document.querySelectorAll("[data-reveal]");

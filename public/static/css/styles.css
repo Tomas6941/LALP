@@ -658,36 +658,10 @@ button {
   }
 }
 
-/* Nota: el listado de propuestas usa .cards--propuestas (absoluto, ver abajo)
-   y no depende de estas columnas. */
 @media (min-width: 980px) {
   .cards--3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-}
-
-/* Propuestas: grilla rígida de 3 columnas x 4 filas. El ancho y la posición
-   de cada card los pone main.js con `transform`, así al abrir una propuesta
-   sólo se mueven las de su columna: las de los costados no se enteran. */
-.cards--propuestas {
-  position: relative;
-  display: block;
-  padding: 0;
-}
-
-.cards--propuestas > .card--disclosure {
-  position: absolute;
-  top: 0;
-  left: 0;
-  will-change: transform;
-  transform: translate(var(--x, 0px), var(--y, 0px));
-  transition: transform 0.3s var(--ease-out);
-}
-
-/* Al medir de nuevo (carga, fuentes, resize) el reacomodo es instantáneo:
-   animar ahí daría un barrido entre layouts. */
-.cards--propuestas.cards--reposicionando > .card--disclosure {
-  transition: none;
 }
 
 .card {
@@ -699,14 +673,6 @@ button {
 .card--disclosure {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-}
-
-/* Título, texto y botón: sin margen propio, el ritmo lo da el gap del flex. */
-.card--disclosure .card__title,
-.card--disclosure .card__text,
-.card--disclosure .disclosure {
-  margin-top: 0;
 }
 
 .card__kicker {
@@ -749,6 +715,7 @@ button {
   justify-content: space-between;
   gap: 0.75rem;
   width: 100%;
+  margin-top: 1.15rem;
   min-height: 44px;
   padding: 0.6rem 0.9rem;
   border: 0;
@@ -786,10 +753,14 @@ button {
   transform: rotate(180deg);
 }
 
-/* La grilla de propuestas se posiciona desde JS: cada card es absoluta y se
-   ubica con translate(x, y). Abrir una propuesta sólo empuja su columna, no
-   la fila entera; por eso ya no hay estiramiento de celdas ni altura que
-   compartir. Ver "Disclosures de propuestas" en main.js. */
+/* La grilla estira cada fila a la card más alta. Mientras una propuesta está
+   desplegada (o cerrándose), la que crece o colapsa mide su propio contenido
+   en vez de estirarse a la fila: sus compañeras conservan la altura congelada
+   por JS, así que sólo se desplazan las filas de abajo. */
+.card--disclosure.is-open,
+.card--disclosure.is-closing {
+  align-self: start;
+}
 
 .disclosure__panel {
   display: grid;
@@ -1265,27 +1236,16 @@ button {
   .hero__reveal--4 { animation-delay: 0.27s; }
   .hero__reveal--5 { animation-delay: 0.35s; }
 
-  /* Reveals al hacer scroll: sólo con JS activo, para no ocultar contenido.
-     Las cards de propuestas quedan fuera: su transform lo compone main.js con
-     las variables --x/--y, así que el reveal ahí es sólo opacidad. */
-  html.has-js [data-reveal]:not(.card--disclosure) {
+  /* Reveals al hacer scroll: sólo con JS activo, para no ocultar contenido */
+  html.has-js [data-reveal] {
     opacity: 0;
     transform: translateY(14px);
     transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out);
   }
 
-  html.has-js [data-reveal]:not(.card--disclosure).is-visible {
+  html.has-js [data-reveal].is-visible {
     opacity: 1;
     transform: none;
-  }
-
-  html.has-js .card--disclosure[data-reveal] {
-    opacity: 0;
-    transition: opacity 0.45s var(--ease-out);
-  }
-
-  html.has-js .card--disclosure[data-reveal].is-visible {
-    opacity: 1;
   }
 
   html.has-js .cards > [data-reveal]:nth-child(2),
@@ -1326,8 +1286,7 @@ button {
   .nav__link,
   .disclosure,
   .disclosure__chevron,
-  .disclosure__panel,
-  .cards--propuestas > .card--disclosure {
+  .disclosure__panel {
     transition: none !important;
   }
 
